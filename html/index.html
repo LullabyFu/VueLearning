@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <!-- 绑定到DOM的文本 -->
+    <div id="app">
+        {{ message }}
+    </div>
+
+    <!-- 绑定到DOM的特性（属性） -->
+    <div id="app2">
+        <span v-bind:title="message">
+            鼠标放这
+        </span>
+    </div>
+
+    <!-- 绑定到DOM结构（节点？） -->
+    <div id="app3">
+        <p v-if='seen'>now you see me</p>
+    </div>
+
+    <!-- 绑定数组的数据来渲染一个项目列表 -->
+    <div id="app4">
+        <ol>
+            <li v-for="list in todos">
+                {{ list.text }}
+            </li>
+        </ol>
+    </div>
+
+    <!-- 添加事件监听器 -->
+    <div id="app5">
+        <p>{{ message }}</p>
+        <button v-on:click="reverseMessage">reverse</button>
+    </div>
+
+    <!-- 表单输入和应用状态之间的双向绑定 -->
+    <div id="app6">
+        <p>{{ message }}</p>
+        <input v-model="message"/>
+    </div>
+
+    <!-- 组件 -->
+    <div id="app7">
+        <ol>
+            <todo-item
+              v-for="item in groceryList"
+              v-bind:todo="item"
+              v-bind:key="item.id">
+            </todo-item>
+        </ol>
+    </div>
+    <script src="../scripts/index.js"></script>
+</body>
+</html>
