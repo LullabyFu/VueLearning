@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="example1">
+        <h1>计算属性</h1>
+        <h2>1、例子</h2>
+        <p>orginal message: {{ message }}</p>
+        <p>reverse: {{ reversedMessage1 }}</p>
+
+        <h2>计算属性缓存vs方法</h2>
+        <p>orginal message: {{ message }}</p>
+        <p>reverse: {{ reversedMessage2() }}</p>
+
+        <p>也可以对同样功能的函数定义为方法（在methods中），结果相同，也会随着绑定的属性变化，
+            但计算属性是基于其响应式依赖进行缓存，即，上述message未发生改变，多次访问reversedMessage1
+            计算属性就会立即返回之前的计算结果，而不再执行函数</br>
+            相比之下，每当触发重新渲染时，调用方法总会再次执行函数
+        </p>
+
+        <h2>计算属性vs侦听属性</h2>
+        <p>firstName: {{ firstName }}</p>
+        <p>lastName: {{ lastName }}</p>
+        <p>fullName(使用watch): {{ fullName }}</p>
+        <p>侦听属性——watch，一种观察和响应Vue实例上的数据变动的更通用的方式</br>
+        当有一些数据需要随着其他数据变动而变动时，容易滥用watch，例如，需要依赖lastname，
+        firstname的fullname</p>
+        <p>但明显的，使用watch会造成代码是命令式且重复的，用计算属性明显简单得多</p>
+
+        <h2>计算属性的setter</h2>
+        <p>计算属性默认只有getter，不过也可以手动提供setter</p>
+        <p>firstName: {{ firstName }}</p>
+        <p>lastName: {{ lastName }}</p>
+        <p>fullName（使用computed）: {{ fullName1 }}</p>
+        <p>setter可根据fullName1的更改设置firstName和lastName</p>
+        <p>注意computed中的属性名不能与data中的属性名重复</p>
+
+        <h1>侦听器</h1>
+        <p>当需要在数据变化时执行异步或开销较大的操作时，侦听器是最有用的</p>
+        
+    </div>
+    <script src="../scripts/practise2.js"></script>
+</body>
+</html>

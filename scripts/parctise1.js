@@ -50,3 +50,15 @@ var vm2 = new Vue({
     } 
 });
 
+var vm3 = new Vue({
+    el: '#example2',
+    data:{
+        eventname: 'click',
+        doSomething: function doSomething(){
+            alert('Hello');
+        }
+    }
+});
+
+
+
