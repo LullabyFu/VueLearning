@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="example1">
+        <h1>条件渲染</h1>
+        <p v-if="show">v-if指令用于条件性地渲染一块内容，这块内容只在指令表达式返回truthy才会渲染，
+            例如本句只有当vm.show为true时才会出现，否则出现另一个句子
+        </p>
+        <p v-else>也可以用v-else添加一个else块</p>
+
+        <h2>在template元素上使用v-if条件渲染分组</h2>
+        <p>因为v-if是一个指令，必须将它添加到一盒元素上，如果想切换多个元素，
+            可以将多个元素包裹在一个template元素中，并在上面使用v-if，最终的渲染结果将不包含template
+        </p>
+        <template v-if="ok">
+            <p>can u see me?</p>
+            <p>can u hear me?</p>
+            <p>u won't find template element in the Elements of Chrome</p>
+        </template>
+
+        <h2>v-else</h2>
+        <p>v-else 元素必须跟在带v-if或者v-else-if的元素后面，否则它将不会被识别</p>
+
+        <h2>v-else-if</h2>
+        <p>充当v-if的else-if块，可以连续使用</p>
+        <p v-if="type === 'A'">I'm A</p>
+        <p v-else-if="type === 'B'">I'm B</p>
+        <p v-else-if="type === 'C'">I'm C</p>
+        <p>一个if组即使有多个else-if块，真正占地只有一个块的位置</p>
+
+        <h2>用key管理可复用的元素</h2>
+        <p>Vue通常会复用已有元素而不是从头开始渲染</p>
+
+        <template v-if="loginType === 'username'">
+            <label for="username">UserName</label>
+            <input id="username" placeholder="Enter Username">
+        </template>
+        <template v-else>
+            <label for="email">Email</label>
+            <input id="email" placeholder="Enter Email">
+        </template>
+        <button v-on:click="changeType">change login type</button>
+
+        <p>在输入框中输入的文本，点击按钮之后依然存在可以证明vue复用了input元素，仅仅是替换了其placeholder</p>
+
+        <p>而如果希望两个input元素是独立的，不希望vue去复用，添加一个唯一的key属性即可</p>
+
+        <template v-if="loginType1 === 'username'">
+            <label for="username">UserName</label>
+            <input id="username" placeholder="Enter Username">
+        </template>
+        <template v-else>
+            <label for="email">Email</label>
+            <input id="email" placeholder="Enter Email" key="email">
+       </template>
+       <button v-on:click="changeType1">change login type</button>
+       <p>输入文本点击按钮后，文本被重置，说明input没有被复用，但label仍然被复用</p>
+
+       <h1>v-show</h1>
+       <p>v-show也可根据条件展示元素，用法和v-if大致一样，不停地是带有v-show的元素始终会被渲染并保留在
+           DOM中，v-show只是简单地切换元素的css属性display（不可见时display为display：none），v-show不支持template元素，也不支持v-else
+       </p>
+       <p v-show="ok" style="color:red">Hello</p>
+
+       <p>v-if是真正的条件渲染，它会确保在切换过程中条件块内的时间监听器和子组件适当地被销毁和重建，
+           但v-if也是惰性的，如果初始渲染条件为假，则直到条件第一次为真时才会开始渲染。
+           但v-show不管初始条件是什么，都会在一开始就渲染，切换到时候也只是基于css切换。
+           v-if有更高的切换开销，v-show有更高的初始渲染开销，如果需要非常频繁地切换，使用v-show较好
+       </p>
+    </div>
+    <script src="../scripts/practise4.js"></script>
+</body>
+</html>
