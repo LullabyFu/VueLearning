@@ -4,7 +4,9 @@ var vm1 = new Vue({
         message: 'Hello, Alice',
         firstName: 'Janice',
         lastName: 'Fu',
-        fullName: 'Janice Fu'
+        fullName: 'Janice Fu',
+        password: '',
+        response: ''
     },
     computed: {
         //计算属性的getter
@@ -32,11 +34,46 @@ var vm1 = new Vue({
         
         lastName: function(val){
             this.fullName = this.firstName + ' ' + val;
+        },
+
+        //使用watch测试ajax
+        password: function(val){
+            if(val=='666'){
+                this.onSubmit();
+            }
         }
     },
     methods: {
         reversedMessage2: function(){
             return this.message.split('').reverse().join('');
+        },
+
+        //ajax
+        onSubmit: function(){
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4){
+                    if(xhr.status === 200){
+                        return success(xhr.responseText);
+                    }
+                    else{
+                        return fail(xhr.responseText);
+                    }
+                }
+            }
+
+            function success(text){
+                this.response = text;
+            }
+            function fail(text){
+                this.response = text;
+            }
+
+            xhr.open("POST", "https://szuwechat.cn/tech", true);
+            xhr.send(JSON.stringify({
+                username: 'szu',
+                password: '666'
+            }));
         }
     }
 });

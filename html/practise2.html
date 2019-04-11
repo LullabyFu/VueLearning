@@ -43,7 +43,11 @@
 
         <h1>侦听器</h1>
         <p>当需要在数据变化时执行异步或开销较大的操作时，侦听器是最有用的</p>
-        
+        <form v-on:submit="onSubmit">
+            <label for="password">password</label>
+            <input type="text" v-model="password"></input>
+            <p>{{ response }}</p>
+        </form>
     </div>
     <script src="../scripts/practise2.js"></script>
 </body>
