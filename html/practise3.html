@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .static{
+            font-size: 18px;
+        }
+        .active{
+            color: blue;
+        }
+        .text-style{
+            font-style: italic;
+        }
+        .red-font{
+            color: red;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="example1">
+        <h1>Class与Style绑定</h1>
+        <h2>1、绑定html class</h2>
+        <p class="static" v-bind:class="{ active: isActive, 'text-style': hasError }">
+            给v-bind:class传递一个对象，以动态地切换class
+        </p>
+        <p>v-bind绑定的class可可以在对象中传入更多属性来动态切换多个class，绑定的class可以和普通的class共存</br>
+        isActive和hasError变化时，class列表会相应更新</p>
+
+        <p v-bind:class="classObject">绑定的数据对象不必内联定义在模板里，可以绑定一个返回对象的计算属性</p>
+
+        <h3>数组语法</h2>
+        <p v-bind:class="[redClass, styleClass]">
+            可以把一个数组传给v-bind:class，以应用一个class列表
+        </p>
+        <p v-bind:class="[isActive ? redClass : '', styleClass]">
+            如果想根据条件切换列表中的class可以使用三元表达式，
+            styleClass将始终添加，redClass只有在isActive为true时添加
+        </p>
+        <p v-bind:class="[{ active: isActive}, styleClass]">当有多个条件clsss时使用三元会比较繁琐，数组语法中也可以使用对象语法</p>
+
+        <h3>2、用在组件上</h3>
+
+        <h2>绑定内联样式（style）</h2>
+        <h3>1、对象语法</h3>
+        
+        <p v-bind:style="{ color: styleColor, 'font-size': fontSize + 'px' }">v-bind:style看着像css其实是一个JavaScript对象，
+            Css属性名可用驼峰式，也可用短横线，但要记得用单引号括起来
+        </p>
+        
+        <p v-bind:style="styleObject">直接绑定一个样式对象，让模板可以更清晰</p>
+        
+        <p v-bind:style="bigFont">对象语法也常常结合返回对象的计算属性使用</p>
+
+        <h3>2、数组语法</h3>
+        <p v-bind:style="[styleObject, style2]">v-bind:style的数组语法可以将多个样式对象应用到同一个元素上</p>
+
+        <h3>3、多重值</h3>
+        <p>可以为style绑定中的输定提供一个包含多个值的数组，常用于提供多个带前缀的值，如：“style="{ display: ['-webkit-box', '-ms-flexbox', 'flex']”</p>
+    </div>
+    <script src="../scripts/practise3.js"></script>
+</body>
+</html>
