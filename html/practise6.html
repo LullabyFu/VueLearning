@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="example">
+        <h1>事件处理</h1>
+        <h2>监听事件</h2>
+        <p>用v-on监听DOM时间，并在触发时运行一些js代码</p>
+        <button v-on:click="counter += 1">{{ counter + ' times' }}</button>
+
+        <h2>事件处理方法</h2>
+        <p>许多事件处理逻辑更为复杂，所以直接把js写在v-on中不可行，v-on还可以接受一个需要调用的方法名称</p>
+        <button v-on:click="greet">Greet</button>
+
+        <h2>内联处理器中的方法</h2>
+        <p>除了直接绑定到一个方法，也可以在内联js中调用方法</p>
+        <button v-on:click="sayHi('Hello')">Hello</button>
+        <button v-on:click="sayHi('Hi')">Hi</button>
+
+        <p>有时需要在内联语句处理器中访问原始DOM，可使用特殊变量$event把事件传入方法</p>
+        <button v-on:click="warn('hello', $event)">Submit</button>
+
+        <h2>事件修饰符</h2>
+    </div>
+    <script src="../scripts/practise6.js"></script>
+</body>
+</html>
