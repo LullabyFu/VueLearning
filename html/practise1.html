@@ -27,10 +27,11 @@
         <p>3、特性，使用v-bind，mustache语法就不能作用在html特性上</p>
         <!-- isButtonDisabled为false的时候，在标签里被绑定属性不会被渲染出来 -->
         <!-- isButtonDisabled为true的时候，Button的disabled属性被激活，按钮不可按 -->
+        <!-- disabled是按键固有的属性 -->
         <button v-bind:disabled="isButtonDisabled">Button</button>
     </br>
         <div v-bind:id="'list-' + id">
-            <p>4、使用JavaScript表达式，每个绑定只能包含一个表达式（注意表达式和语句的区别）</p>
+            <p>4、使用JavaScript表达式，每个绑定只能包含一个表达式（注意表达式和语句的区别，等号后面就是表达式）</p>
             <p>number + 1 = {{ number + 1 }}</p>
             <p>what' s the value of ok: {{ ok? 'TRUE' : 'FALSE'}}</p>
             <p>{{ message.split('').reverse().join('') }}</p>
@@ -44,13 +45,13 @@
         <h2>1、参数</h2>
         <p>指令名称后以冒号表示：</p>
         <p>v-bind:href="url" ——告知v-bind将某元素的href特性与js表达式url（在data中）绑定</p>
-        <p>v-on:click="doSomething" ——用于监听dom事件，参数为监听的事件名</p>
+        <p>v-on:click="doSomething" ——用于监听dom事件，参数为监听的事件名click</p>
     
     </br>
         
         <h2>2、动态参数</h2>
-        <p>可用方括号括起来的js表达式作为一个指令的参数：v-bind:[attributrName]="url" ——attributeName会被作为一个js表达式进行动态求职
-            ，求得求得的值会作为一个动态的事件名绑定处理函数
+        <p>可用方括号括起来的js表达式作为一个指令的参数：v-bind:[attributrName]="url" ——attributeName会被作为一个js表达式进行动态求值
+            ，求得的值会作为一个动态的事件名绑定处理函数
         </p>
         <a v-on:[eventname]="doSomething" style="color:blue; cursor: pointer;">Click Me</a>
         <p>注意：在dom中使用模板要回避大写，浏览器会把特性名全部转为小写</p>
