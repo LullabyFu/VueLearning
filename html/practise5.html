@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .divider{
+             color: red;
+        }   
+    </style>
+</head>
+<body>
+    <div id="example1">
+        <h1>列表渲染</h1>
+
+        <h2>用v-for把一个数组对应为一组元素</h2>
+        <p>v-for指令需要使用item in items形式的特殊语法，items是源数据数组并且item是数组元素迭代的别名，
+            即item是元素，items是数组
+        </p>
+        <ul>
+            <li v-for="item of itemArray">
+                {{ item.message }}
+            </li>
+        </ul>
+
+        <p>v-for块中，拥有对于父作用域属性的完全访问权限，v-for还支持一个可选的第二个参数为当前项的索引</p>
+        <ul>
+            <li v-for="(item, index) in itemArray">
+                {{ Parent }} - {{ index }} - {{ item.message }}
+            </li>
+        </ul>
+
+        <p>也可用of代替in</p>
+
+        <h2>一个对象的v-for</h2>
+        <ul>
+            <li v-for="value in object1">
+                {{ value }}
+            </li>
+        </ul>
+
+        <p>提供第二个参数为键名</p>
+        <ul>
+            <li v-for="(value, key) in object1">
+                {{ key }} : {{ value }}
+            </li>
+        </ul>
+
+        <p>提供第三个参数为索引</p>
+        <ul>
+            <li v-for="(value, key, index) in object1">
+                {{ index+1 }}. {{ key }}: {{ value }}
+            </li>
+        </ul>
+        <p>注意：遍历对象时，是按objec.keys()的结果遍历，不能保证其结果在不同js引擎下是一致的</p>
+
+        <h2>key</h2>
+        <p>vue用v-for更新已经渲染过的元素列表时，默认用就地复用策略，如果数据项的顺序（index）被改变，
+            vue将不会移动dom元素来匹配数据项的顺序，而是简单复用此处每个元素，并确保它在特定索引下显示已被渲染过的每个元素
+        </p>
+        <p>这个默认的模式虽然高效但只适用于不依赖子组件状态或临时dom状态的列表渲染输出</p>
+
+        <p>为了给vue一个提示，以便其跟踪每个节点的身份从而重用和重排现有元素，可以为每项提供唯一一个key属性。
+            理想的key是每项都有唯一id，其工作方式类似一个属性，所以需要用v-bind来绑定动态值
+        </p>
+
+        <ul>
+            <li v-for="item in itemArray" v-bind:key="item.id">
+                {{ item.message }}
+            </li>
+        </ul>
+
+        <h2>数组更新检测</h2>
+        <h3>变异方法</h3>
+        <p>vue包含一组观察数组的变异方法，可以触发视图更新，如push，pop，splice，sort，reverse等</p>
+
+        <h3>替换数组</h3>
+        <p>非变异方法，不会改变原始数组，但总是返回新数组，如filter、concat和slice，
+            使用非变异方法时，可以用新数组替换旧数组。
+            vue不会因为使用了非变异方法丢弃现有dom并重新渲染整个列表
+        </p>
+
+        <h3>注意</h3>
+        <p>vue不能检测以下变动的数组</p>
+        <p>当利用索引直接设置一个项时：vm.items[indexOfItem] = newValue</p>
+        <p>当修改数组长度时：vm.items.length = newLength</p>
+        <p>对以上的修改，都不是响应性的</p>
+
+        <p>使用set和splice解决第一个问题：Vue.set(vm.items, indexOfItem, newValue)  &  vm.items.splice(indexOfItem, 1, newValue)</p>
+        <p>vm.$set(vm.items, indexOfItem, newValue) vm.$set是Vue.set的别名</p>
+
+        <p>第二类问题用splice：vm.items.splice(newLength)</p>
+
+        <h2>对象更改检测注意事项</h2>
+        <p>vue不能检测对象属性的添加或删除，对于已经创建的实例，Vue不能动态添加跟级别的响应式属性，
+            但是可以使用Vue.set(Object, key, value)向嵌套对象添加响应式属性。
+        </p>
+        <ul>
+            <li v-for="(value, key) in userProfile">
+                {{ key }} : {{ value }}
+            </li>
+        </ul>
+
+        <p>为已有对象赋予多个新属性，用两个对象的属性创建一个新对象，使用Object.assign</p>
+        <p>
+                vm.userProfile = Object.assign({}, vm.userProfile, {
+                    age: 27,
+                    favoriteColor: 'Vue Green'
+                  })
+        </p>
+
+        <h2>显示过滤、排序结果</h2>
+        <p>要显示一个数组的过滤或排序副本，而不实际改变或重置原始数据，
+            可以创建返回过滤或排序数组的计算属性
+        </p>
+
+        <li v-for="n in evenNumber">{{ n }}</li>
+
+        <p>计算属性不适用的时候也可以使用method</p>
+
+        <li v-for="n in even(numbers)"> {{ n }}</li>
+
+        <h2>一段取值范围的 v-for</h2>
+        <p>v-for也可以取整数，该情况下，它将重复多次模板</p>
+        <span v-for="n in 10">{{ n + ' ' }}</span>
+
+        <h2>v-for on a template</h2>
+        <p>类似于v-if，也可以利用带有v-for的template渲染多个元素</p>
+        <ul>
+            <template v-for="item in itemArray">
+                <li> {{ item.message }} </li>
+                <li class="divider"></li>
+            </template>
+        </ul>
+
+        <h2>一个组件的v-for</h2>
+        <p></p>
+    </div>
+
+    <script src="../scripts/practise5.js"></script>
+</body>
+</html>
